@@ -144,5 +144,20 @@ namespace phase1.Controllers
             var record = db.products.ToList();
             return View(record);
         }
+
+
+        public ActionResult Filter(string search)
+        {
+            var products = db.products.Include(p => p.category);
+
+            //var Categoryss = from item in db.categories select item;
+
+            if (!String.IsNullOrEmpty(search))
+            {
+                products = products.Where(item => item.category.name.Contains(search)
+                                       || search == null);
+            }
+            return View(products.ToList());
+        }
     }
 }

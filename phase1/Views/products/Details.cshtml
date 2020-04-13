@@ -16,7 +16,8 @@
     <p>@Html.DisplayFor(model => model.name)&nbsp;@Html.DisplayFor(model => model.price)&nbsp;EGP</p>
     @*<img src="@Url.Content(@model.image)" width=50 />*@
 
-    @Html.image(model.image)
+    <img src="@Url.Content(Model.image)" width="300" height="350" />
+
 
     <p>@Html.DisplayFor(model => model.description)</p>
 
