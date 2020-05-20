@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using phase1.Models;
 using System.IO;
 
+
 namespace phase1.Controllers
 {
     public class productsController : Controller
@@ -155,12 +156,12 @@ namespace phase1.Controllers
                 products = products.Where(item => item.category.Category_Name.Contains(search) || search == null).ToList();
             }
             var cart = db.carts.ToList();
-            var viewModel = new ProductCartsViewModel
+            var Viewmodel = new ProductCarts
             {
                 carts = cart,
                 products = products
             };
-            return View(viewModel);
+            return View(Viewmodel);
         }
     }
 }
