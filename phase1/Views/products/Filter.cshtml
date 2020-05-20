@@ -1,4 +1,4 @@
-﻿@model IEnumerable<phase1.Models.product>
+﻿@model phase1.Viewmodel.ProductCarts
 
 
 @{
@@ -6,6 +6,49 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@using (Html.BeginForm())
+{
+    <div class="container" style="width:100%;margin-top:2%">
+        <a href="href=" @Url.Action("Index", "carts", null) class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal" role="button">Show my cart</a>
+        <div class="modal fade" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <a href="#" class="close" data-dismiss="modal">&times;</a>
+                        <h3 class="modal-title">Cart</h3>
+                    </div>
+                    <div class="modal-body">
+                        <form id="myForm">
+                            <table class="table">
+                                @foreach (var item in Model.carts)
+                                {
+                                    <tr>
+                                        <td>
+                                            <a href=" @Url.Action("Remove","Carts",new { id=item.product_Id } )" class="btn btn-primary">Remove</a>
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.product.Name) - @Html.DisplayFor(modelItem => item.product.Price) EGP<br />
+                                            @Html.DisplayFor(modelItem => item.added_at)
+                                        </td>
+                                    </tr>
+                                }
+
+                            </table>
+                        </form>
+                        <div style="text-align:center;display:none" id="loaderDiv">
+                            <img src="~/Content/InternetSlowdown_Day.gif" width="150" /> @* //put any image in content folder*@
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="@Url.Action("Filter", "Products", null)" class="btn btn-default" data-dismiss="modal">Cancel</a>
+                        @*<input type="reset" value="Submit" class="btn btn-success" id="btnSubmit" />*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 <h2>Products</h2>
 @using (Html.BeginForm())
 
@@ -43,3 +86,20 @@
         </div>
     }
 </table>
+<script>
+    $(document).ready(function () {
+        $("#btnSubmit").click(function () {
+            $("#loaderDiv").show();
+            var myformdata = $("#myForm").serialize();
+            $.ajax({
+                type: "POST",
+                url: "/Test/Index",
+                data: myformdata,
+                success: function () {
+                    $("#loaderDiv").hide();
+                    $("#myModal").modal("hide");
+                }
+            })
+        })
+    })
+</script>
