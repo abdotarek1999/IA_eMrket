@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace phase1.Viewmodel
+namespace phase1.Models
 {
     public class ProductCarts
     {

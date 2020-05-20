@@ -153,7 +153,7 @@ namespace phase1.Controllers
 
             if (!String.IsNullOrEmpty(search))
             {
-                products = products.Where(item => item.category.Category_Name.Contains(search) || search == null).ToList();
+                products = products.Where(item => item.category.name.Contains(search) || search == null).ToList();
             }
             var cart = db.carts.ToList();
             var Viewmodel = new ProductCarts
